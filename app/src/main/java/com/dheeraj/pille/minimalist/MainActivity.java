@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 // Sets button visibility/enabled status accordingly
                 if (b) {
                     taskEditText.startAnimation(zoom_in);
-                    taskEditText.setElevation(25);
+                    taskEditText.setElevation(50);
                     taskAddButton.setVisibility(View.VISIBLE);
                     taskAddButton.setEnabled(true);
                 } else {
