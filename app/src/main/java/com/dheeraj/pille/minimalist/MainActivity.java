@@ -5,16 +5,18 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.view.animation.AnimationUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText taskEditText;
-    private Button taskAddButton;
+    private ImageButton taskAddButton;
     private String taskString;
 
     @Override
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         taskEditText = (EditText)findViewById(R.id.taskEditText);
-        taskAddButton = (Button)findViewById(R.id.taskAddButton);
+        taskAddButton = (ImageButton)findViewById(R.id.taskAddButton);
 
         // Sets a focus listener for changes
         taskEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 // Sets button visibility/enabled status accordingly
                 if (b) {
                     Toast.makeText(getBaseContext(), "Focused", Toast.LENGTH_SHORT).show();
+                    taskAddButton.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left));
                     taskAddButton.setVisibility(View.VISIBLE);
                     taskAddButton.setEnabled(true);
                 } else {
