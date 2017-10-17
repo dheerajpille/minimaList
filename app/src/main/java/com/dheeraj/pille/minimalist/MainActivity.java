@@ -2,6 +2,7 @@ package com.dheeraj.pille.minimalist;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View;
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton taskAddButton;
     private String taskString;
 
-    private Animation zoom_in, zoom_out;
+    private Animation zoom_in, zoom_out, slide_left;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
         zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_out);
+        slide_left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_left);
 
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         taskAddButton = (ImageButton)findViewById(R.id.taskAddButton);
@@ -42,13 +44,14 @@ public class MainActivity extends AppCompatActivity {
                 // Checks if EditText is in focus
                 // Sets button visibility/enabled status accordingly
                 if (b) {
-                    // taskAddButton.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left));
+                    taskEditText.startAnimation(zoom_in);
+                    taskEditText.setElevation(25);
                     taskAddButton.setVisibility(View.VISIBLE);
                     taskAddButton.setEnabled(true);
-                    taskEditText.startAnimation(zoom_in);
                 } else {
                     // Hint that appears when EditText is not in focus
                     taskEditText.setHint("Add task");
+                    taskEditText.setElevation(0);
                     taskAddButton.setVisibility(View.GONE);
                     taskAddButton.setEnabled(false);
                     taskEditText.startAnimation(zoom_out);
