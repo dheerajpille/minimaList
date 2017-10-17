@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#87CEEB"
+    android:background="#b1b1df"
+    android:padding="25dp"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     tools:context="com.dheeraj.pille.minimalist.MainActivity">
@@ -15,6 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#778899"
+        android:background="#f1f1fb"
+        android:padding="15dp"
         android:layout_toStartOf="@+id/taskAddButton"
         android:layout_toLeftOf="@+id/taskAddButton" />
 

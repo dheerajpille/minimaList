@@ -26,9 +26,15 @@ public class MainActivity extends AppCompatActivity {
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         taskAddButton = (Button)findViewById(R.id.taskAddButton);
 
+        // Sets a focus listener for changes
         taskEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            // Overrides standard FocusChange function
             @Override
             public void onFocusChange(View view, boolean b) {
+
+                // Checks if EditText is in focus
+                // Sets button visibility/enabled status accordingly
                 if (b) {
                     Toast.makeText(getBaseContext(), "Focused", Toast.LENGTH_SHORT).show();
                     taskAddButton.setVisibility(View.VISIBLE);
