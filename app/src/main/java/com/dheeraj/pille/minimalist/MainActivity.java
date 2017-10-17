@@ -1,10 +1,7 @@
 package com.dheeraj.pille.minimalist;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View;
@@ -18,11 +15,16 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton taskAddButton;
     private String taskString;
 
+    private Animation zoom_in, zoom_out;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+        zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_out);
 
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         taskAddButton = (ImageButton)findViewById(R.id.taskAddButton);
@@ -40,17 +42,16 @@ public class MainActivity extends AppCompatActivity {
                 // Checks if EditText is in focus
                 // Sets button visibility/enabled status accordingly
                 if (b) {
-                    Toast.makeText(getBaseContext(), "Focused", Toast.LENGTH_SHORT).show();
                     // taskAddButton.startAnimation(AnimationUtils.loadAnimation(getBaseContext(), android.R.anim.slide_in_left));
                     taskAddButton.setVisibility(View.VISIBLE);
                     taskAddButton.setEnabled(true);
+                    taskEditText.startAnimation(zoom_in);
                 } else {
-                    Toast.makeText(getBaseContext(), "Not focused", Toast.LENGTH_SHORT).show();
-
                     // Hint that appears when EditText is not in focus
                     taskEditText.setHint("Add task");
                     taskAddButton.setVisibility(View.GONE);
                     taskAddButton.setEnabled(false);
+                    taskEditText.startAnimation(zoom_out);
                 }
             }
         });
