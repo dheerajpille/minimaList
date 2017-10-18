@@ -1,5 +1,6 @@
 package com.dheeraj.pille.minimalist;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -56,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
                     // Removes shadow from EditText
                     taskEditText.setElevation(0);
+
+
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(taskEditText.getWindowToken(), 0);
                 }
             }
         });
@@ -64,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_DONE) {
+
+                    // Gets string value from EditText
                     taskString = taskEditText.getText().toString();
 
                     // Clears EditText field and focus

@@ -34,7 +34,6 @@
         android:layout_height="match_parent"
         android:padding="15dp"
         android:background="#9bfde7"
-        android:layout_below="@+id/taskEditText"
-        android:visibility="gone"/>
+        android:layout_below="@+id/taskEditText" />
 
 </RelativeLayout>
