@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                     // Removes shadow from EditText
                     taskEditText.setElevation(0);
 
-
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(taskEditText.getWindowToken(), 0);
                 }
