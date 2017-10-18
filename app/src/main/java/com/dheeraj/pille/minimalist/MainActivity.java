@@ -1,12 +1,15 @@
 package com.dheeraj.pille.minimalist;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.View;
@@ -37,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Test tasks
-        tasks.add(new Task("cool", false));
-        tasks.add(new Task("hot", false));
+        // TODO: implement saving and getting data
 
         // Defines animations from res/anim/ resources
         zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
@@ -48,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
 
+
         // Initial hint state for EditText
+        // TODO: remove this when it's intuitive
         taskEditText.setHint("Add task");
 
         // Sets a focus listener for changes
@@ -60,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Checks if EditText is in focus
                 if (b) {
-
-                    // Starts zoom_in animation
+                    // Starts zoom_in animation\
                     taskEditText.startAnimation(zoom_in);
 
                     // Adds elevation to create shadow on EditText
