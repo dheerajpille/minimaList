@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private String taskString;
 
     private RecyclerView recyclerView;
+    private RecyclerAdapter recyclerAdapter;
+
+    String[] tasks = {"go fall", "go bike", "go clean", "go food"};
 
     private Animation zoom_in, zoom_out;
 
@@ -40,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(llm);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
+
+        recyclerView.setAdapter(recyclerAdapter);
 
         // Initial hint state for EditText
         taskEditText.setHint("Add task");
