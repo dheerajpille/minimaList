@@ -7,7 +7,18 @@
         android:fromXScale="1"
         android:fromYScale="1"
         android:pivotX="50%"
-        android:pivotY="50%"
+        android:pivotY="100%"
         android:toXScale="1.125"
+        android:toYScale="1" />
+
+    <scale xmlns:android="http://schemas.android.com/apk/res/android"
+        android:startOffset="150"
+        android:duration="150"
+        android:fromXScale="1"
+        android:fromYScale="1"
+        android:pivotX="50%"
+        android:pivotY="100%"
+        android:toXScale="1"
         android:toYScale="1.125" />
+
 </set>
