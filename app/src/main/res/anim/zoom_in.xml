@@ -3,7 +3,7 @@
     android:fillAfter="true">
 
     <scale xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="150"
+        android:duration="100"
         android:fromXScale="1"
         android:fromYScale="1"
         android:pivotX="50%"
@@ -12,8 +12,8 @@
         android:toYScale="1" />
 
     <scale xmlns:android="http://schemas.android.com/apk/res/android"
-        android:startOffset="150"
-        android:duration="150"
+        android:startOffset="100"
+        android:duration="100"
         android:fromXScale="1"
         android:fromYScale="1"
         android:pivotX="50%"
