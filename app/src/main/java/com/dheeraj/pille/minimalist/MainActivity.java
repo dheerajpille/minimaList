@@ -18,9 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText taskEditText;
     private String taskString;
 
-    // Remove this
-    private ImageButton taskAddButton;
-
     private Animation zoom_in, zoom_out;
 
     @Override
@@ -33,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_out);
 
         taskEditText = (EditText)findViewById(R.id.taskEditText);
-        taskAddButton = (ImageButton)findViewById(R.id.taskAddButton);
 
         // Initial hint state for EditText
         taskEditText.setHint("Add task");
@@ -52,10 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
                     // Adds elevation to create shadow on EditText
                     taskEditText.setElevation(50);
-
-                    // TODO: remove these
-                    taskAddButton.setVisibility(View.VISIBLE);
-                    taskAddButton.setEnabled(true);
                 } else {
                     // Hint that appears when EditText is not in focus
                     taskEditText.setHint("Add task");
@@ -64,10 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
                     // Removes shadow from EditText
                     taskEditText.setElevation(0);
-
-                    // TODO: remove these
-                    taskAddButton.setVisibility(View.GONE);
-                    taskAddButton.setEnabled(false);
                 }
             }
         });
@@ -90,27 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(getBaseContext(), "Empty", Toast.LENGTH_SHORT).show();
                 return false;
-            }
-        });
-
-        // Sets a button listener for clicks
-        taskAddButton.setOnClickListener(new View.OnClickListener() {
-
-            // Processes when button is clicked
-            public void onClick(View v) {
-
-                // Get string value from EditText
-                taskString = taskEditText.getText().toString();
-
-                // Clears EditText field and focus
-                taskEditText.getText().clear();
-                taskEditText.clearFocus();
-
-                if (taskString.isEmpty()) {
-                    Toast.makeText(getBaseContext(), "Empty", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getBaseContext(), taskString, Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }
