@@ -10,52 +10,48 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>{
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
+    private ArrayList<Task> taskArrayList;
     String[] tasks;
     Context context;
     View view1;
     ViewHolder viewHolder1;
     TextView textView;
 
-    public RecyclerAdapter(Context context1,String[] tasks1){
-
-        tasks = tasks1;
-        context = context1;
+    public RecyclerAdapter(Context c, ArrayList<Task> tal) {
+        this.context = c;
+        this.taskArrayList = tal;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView textView;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView taskText;
 
-        public ViewHolder(View v){
-
+        public ViewHolder(View v) {
             super(v);
-
-            textView = (TextView)v.findViewById(R.id.taskItem);
+            taskText = (TextView)v.findViewById(R.id.taskText);
         }
     }
 
+
     @Override
-    public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-
-        view1 = LayoutInflater.from(context).inflate(R.layout.item_task,parent,false);
-
-        viewHolder1 = new ViewHolder(view1);
-
-        return viewHolder1;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position){
-
-        holder.textView.setText(tasks[position]);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        Task task = taskArrayList.get(position);
+        holder.taskText.setText(task.getText());
     }
 
     @Override
     public int getItemCount() {
-        return tasks.length;
+        return taskArrayList.size();
     }
 }

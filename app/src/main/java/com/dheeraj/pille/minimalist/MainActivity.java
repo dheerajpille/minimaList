@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
 
-    String[] tasks = {"go fall", "go bike", "go clean", "go food"};
+    ArrayList<Task> tasks = new ArrayList<Task>();
 
     private Animation zoom_in, zoom_out;
 
@@ -35,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
         // Creates application view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tasks.add(new Task("cool", false));
+
+        tasks.add(new Task("cool", false));
+
+        tasks.add(new Task("cool", false));
+
+        tasks.add(new Task("cool", false));
 
         // Defines animations from res/anim/ resources
         zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);

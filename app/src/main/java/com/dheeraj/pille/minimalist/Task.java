@@ -11,6 +11,11 @@ public class Task {
         this.checked = false;
     }
 
+    public Task(String text, boolean checked) {
+        this.text = text;
+        this.checked = checked;
+    }
+
     public Task(Task t) {
         this.text = t.getText();
         this.checked = t.getChecked();
