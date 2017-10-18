@@ -39,17 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Test tasks
         tasks.add(new Task("cool", false));
-        tasks.add(new Task("fake", false));
-        tasks.add(new Task("waste", false));
-        tasks.add(new Task("doomed", false));
-        tasks.add(new Task("cool", false));
-        tasks.add(new Task("fake", false));
-        tasks.add(new Task("waste", false));
-        tasks.add(new Task("doomed", false));
-        tasks.add(new Task("cool", false));
-        tasks.add(new Task("fake", false));
-        tasks.add(new Task("waste", false));
-        tasks.add(new Task("doomed", false));
+        tasks.add(new Task("hot", false));
 
         // Defines animations from res/anim/ resources
         zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
@@ -57,14 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-        recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
-
-        recyclerView.setAdapter(recyclerAdapter);
 
         // Initial hint state for EditText
         taskEditText.setHint("Add task");
@@ -122,6 +104,18 @@ public class MainActivity extends AppCompatActivity {
 
                     // Returns appropriate Toast response
                     if (!taskString.isEmpty()) {
+
+                        // Adds inputted task to beginning of taskArrayList
+                        tasks.add(0, new Task(taskString, false));
+
+                        // Refreshes RecyclerView
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                        recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
+
+                        // This is the thing that actually refreshes RecyclerView
+                        recyclerView.setAdapter(recyclerAdapter);
+
                         Toast.makeText(getBaseContext(), taskString, Toast.LENGTH_SHORT).show();
                         return true;
                     }
