@@ -37,13 +37,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Test tasks
         tasks.add(new Task("cool", false));
-
+        tasks.add(new Task("fake", false));
+        tasks.add(new Task("waste", false));
+        tasks.add(new Task("doomed", false));
         tasks.add(new Task("cool", false));
-
+        tasks.add(new Task("fake", false));
+        tasks.add(new Task("waste", false));
+        tasks.add(new Task("doomed", false));
         tasks.add(new Task("cool", false));
-
-        tasks.add(new Task("cool", false));
+        tasks.add(new Task("fake", false));
+        tasks.add(new Task("waste", false));
+        tasks.add(new Task("doomed", false));
 
         // Defines animations from res/anim/ resources
         zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
@@ -51,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+
+        recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
