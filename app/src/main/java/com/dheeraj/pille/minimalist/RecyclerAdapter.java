@@ -3,12 +3,10 @@ package com.dheeraj.pille.minimalist;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -61,7 +59,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 // Checks if task has toggled to true
                 if (task.getChecked()) {
 
-                    taskArrayList.remove(position);
+                    taskArrayList.remove(holder.getAdapterPosition());
                     notifyItemRemoved(holder.getAdapterPosition());
 
                     taskArrayList.add(task);
@@ -70,12 +68,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                 } else {
 
-                    taskArrayList.remove(position);
+                    taskArrayList.remove(holder.getAdapterPosition());
                     notifyItemRemoved(holder.getAdapterPosition());
 
                     taskArrayList.add(0, task);
                     notifyItemInserted(0);
-
 
                 }
             }

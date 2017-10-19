@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
 
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        recyclerView.setAdapter(recyclerAdapter);
+
 
         // Initial hint state for EditText
         // TODO: remove this when it's intuitive
@@ -64,12 +69,18 @@ public class MainActivity extends AppCompatActivity {
 
                 // Checks if EditText is in focus
                 if (b) {
-                    // Starts zoom_in animation\
+
+                    taskEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0 ,0);
+
+                    // Starts zoom_in animation
+
                     taskEditText.startAnimation(zoom_in);
 
                     // Adds elevation to create shadow on EditText
                     taskEditText.setElevation(50);
                 } else {
+
+                    taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_plus_button, 0, 0 ,0);
 
                     // Hint that appears when EditText is not in focus
                     taskEditText.setHint("Add task");
@@ -111,10 +122,6 @@ public class MainActivity extends AppCompatActivity {
                         // Adds inputted task to beginning of taskArrayList
                         tasks.add(0, new Task(taskString, false));
 
-                        // Refreshes RecyclerView
-                        recyclerView.setHasFixedSize(false);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
                         // This is the thing that actually refreshes RecyclerView
                         recyclerView.setAdapter(recyclerAdapter);
 
@@ -138,11 +145,11 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
 
                 //Remove swiped item from list and notify the RecyclerView
-                final int position = viewHolder.getAdapterPosition();
+                int position = viewHolder.getAdapterPosition();
 
                 // Removes task from view with swipe offscreen animation
                 tasks.remove(position);
-                recyclerAdapter.notifyDataSetChanged();
+                recyclerAdapter.notifyItemRemoved(position);
 
             }
         };
