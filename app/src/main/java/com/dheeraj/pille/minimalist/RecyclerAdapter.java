@@ -54,21 +54,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                     taskArrayList.remove(position);
 
-                    notifyItemRemoved(position);
 
                     taskArrayList.add(task);
 
-                    notifyItemInserted(taskArrayList.size() - 1);
+                    notifyDataSetChanged();
 
                 } else {
 
                     taskArrayList.remove(position);
 
-                    notifyItemRemoved(position);
-
                     taskArrayList.add(0, task);
 
-                    notifyItemInserted(0);
+                    notifyDataSetChanged();
+
 
                 }
             }
