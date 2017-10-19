@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                         tasks.add(0, new Task(taskString, false));
 
                         // Refreshes RecyclerView
-                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setHasFixedSize(false);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
 

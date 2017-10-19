@@ -3,6 +3,7 @@ package com.dheeraj.pille.minimalist;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,32 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // Toggles task to be opposite of current checked status
                 task.toggleChecked();
-                Toast.makeText(context, task.getText() +" " + task.getChecked(), Toast.LENGTH_SHORT).show();
+
+                // Checks if task has toggled to true
+                if (task.getChecked()) {
+
+                    taskArrayList.remove(position);
+
+                    notifyItemRemoved(position);
+
+                    taskArrayList.add(task);
+
+                    notifyItemInserted(taskArrayList.size() - 1);
+
+                } else {
+
+                    taskArrayList.remove(position);
+
+                    notifyItemRemoved(position);
+
+                    taskArrayList.add(0, task);
+
+                    notifyItemInserted(0);
+
+                }
             }
         });
     }
