@@ -27,9 +27,11 @@
             android:layout_alignParentTop="true"
             android:background="#9bfde7"
             android:imeOptions="actionDone"
+            android:drawableLeft="@drawable/ic_add_plus_button"
+            android:drawablePadding="15dp"
             android:padding="15dp"
             android:singleLine="true"
-            android:textColor="#778899"
+            android:textColor="#3f3f3f"
             android:textSize="20dp" />
 
         <!-- TODO: make this reach the bottom of the page and not cut into keyboard -->

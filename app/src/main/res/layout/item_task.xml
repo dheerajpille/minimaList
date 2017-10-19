@@ -18,8 +18,9 @@
                 android:id="@+id/taskText"
                 android:background="#9bfde7"
                 android:padding="15dp"
-                android:drawableLeft="@drawable/ic_check_box_outline_blank_black_24dp"
+                android:drawableLeft="@drawable/ic_circle_outline"
                 android:drawablePadding="15dp"
+                android:textColor="#3f3f3f"
                 android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
