@@ -44,7 +44,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, task.getText(), Toast.LENGTH_SHORT).show();
+                task.toggleChecked();
+                Toast.makeText(context, task.getText() +" " + task.getChecked(), Toast.LENGTH_SHORT).show();
             }
         });
     }
