@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
 
-    ArrayList<Task> tasks = new ArrayList<Task>();
+    private ArrayList<Task> tasks = new ArrayList<Task>();
 
     private Animation zoom_in, zoom_out;
 
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
 
 
         // Initial hint state for EditText
@@ -113,17 +114,14 @@ public class MainActivity extends AppCompatActivity {
                         // Refreshes RecyclerView
                         recyclerView.setHasFixedSize(false);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
 
                         // This is the thing that actually refreshes RecyclerView
                         recyclerView.setAdapter(recyclerAdapter);
 
-                        Toast.makeText(getBaseContext(), taskString, Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 }
 
-                Toast.makeText(getBaseContext(), "Empty", Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -142,15 +140,12 @@ public class MainActivity extends AppCompatActivity {
                 //Remove swiped item from list and notify the RecyclerView
                 final int position = viewHolder.getAdapterPosition();
 
-
-                Toast.makeText(getApplicationContext(), tasks.get(position).getText(), Toast.LENGTH_SHORT).show();
-
                 // Removes task from view with swipe offscreen animation
                 tasks.remove(position);
                 recyclerAdapter.notifyDataSetChanged();
+
             }
         };
-
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);

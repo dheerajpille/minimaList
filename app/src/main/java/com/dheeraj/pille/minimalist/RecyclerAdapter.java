@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -41,36 +39,42 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+
+        // Gets initial position of tasks
         final Task task = taskArrayList.get(position);
+
         holder.taskText.setText(task.getText());
 
+        if (task.getChecked()) {
+            holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_box_black_24dp, 0, 0, 0);
+        } else {
+            holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_box_outline_blank_black_24dp, 0, 0, 0);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                TextView taskText = view.findViewById(R.id.taskText);
-                // Toggles task to be opposite of current checked status
+
                 task.toggleChecked();
 
                 // Checks if task has toggled to true
                 if (task.getChecked()) {
 
                     taskArrayList.remove(position);
+                    notifyItemRemoved(holder.getAdapterPosition());
 
                     taskArrayList.add(task);
+                    notifyItemInserted(getItemCount() - 1);
 
-                    taskText.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_check_box_black_24dp, 0, 0, 0);
-
-                    notifyDataSetChanged();
 
                 } else {
 
                     taskArrayList.remove(position);
+                    notifyItemRemoved(holder.getAdapterPosition());
 
                     taskArrayList.add(0, task);
-
-                    taskText.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_check_box_outline_blank_black_24dp, 0, 0, 0);
-
-                    notifyDataSetChanged();
+                    notifyItemInserted(0);
 
 
                 }
