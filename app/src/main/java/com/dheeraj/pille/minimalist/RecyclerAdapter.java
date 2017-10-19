@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -45,7 +47,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                TextView taskText = view.findViewById(R.id.taskText);
                 // Toggles task to be opposite of current checked status
                 task.toggleChecked();
 
@@ -54,8 +56,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                     taskArrayList.remove(position);
 
-
                     taskArrayList.add(task);
+
+                    taskText.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_check_box_black_24dp, 0, 0, 0);
 
                     notifyDataSetChanged();
 
@@ -64,6 +67,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     taskArrayList.remove(position);
 
                     taskArrayList.add(0, task);
+
+                    taskText.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_check_box_outline_blank_black_24dp, 0, 0, 0);
 
                     notifyDataSetChanged();
 
