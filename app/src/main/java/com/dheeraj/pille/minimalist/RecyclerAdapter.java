@@ -27,7 +27,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         public ViewHolder(View v) {
             super(v);
-            taskText = (TextView)v.findViewById(R.id.taskText);
+            taskText = v.findViewById(R.id.taskText);
         }
     }
 
@@ -37,7 +37,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Task task = taskArrayList.get(position);
         holder.taskText.setText(task.getText());
 
