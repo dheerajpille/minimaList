@@ -144,8 +144,10 @@ public class MainActivity extends AppCompatActivity {
                 final int position = viewHolder.getAdapterPosition();
 
                 // TODO: refresh recyclerView so that it shrinks on deletion.
+                // Maybe done with LinearLayoutManager
                 tasks.remove(position);
                 recyclerAdapter.notifyItemRemoved(position);
+                // recyclerAdapter.notifyDataSetChanged();
             }
         };
 

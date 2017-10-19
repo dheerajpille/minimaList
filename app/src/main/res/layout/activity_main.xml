@@ -32,7 +32,7 @@
             android:textColor="#778899"
             android:textSize="20dp" />
 
-        <!-- TODO: make this reach the bottom of the page and not cut int o-->
+        <!-- TODO: make this reach the bottom of the page and not cut into keyboard -->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -40,7 +40,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/taskEditText"
-            android:background="#0000ff"
             android:scrollbars="vertical" />
 
     </RelativeLayout>
