@@ -44,8 +44,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.taskText.setText(task.getText());
 
         if (task.getChecked()) {
+
+            // Icon made by Google from www.flaticon.com
             holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_tick_inside_circle, 0, 0, 0);
         } else {
+
+            // Icon made by Google from www.flaticon.com
             holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_circle_outline, 0, 0, 0);
         }
 

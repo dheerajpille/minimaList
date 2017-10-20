@@ -55,11 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(recyclerAdapter);
 
-
-        // Initial hint state for EditText
-        // TODO: remove this when it's intuitive
-        taskEditText.setHint("Add task");
-
         // Sets a focus listener for changes
         taskEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -77,13 +72,10 @@ public class MainActivity extends AppCompatActivity {
                     taskEditText.startAnimation(zoom_in);
 
                     // Adds elevation to create shadow on EditText
-                    taskEditText.setElevation(50);
+                    taskEditText.setElevation(25);
                 } else {
-
+                    // Icon made by Google from www.flaticon.com
                     taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_plus_button, 0, 0 ,0);
-
-                    // Hint that appears when EditText is not in focus
-                    taskEditText.setHint("Add task");
 
                     // Starts zoom_out animation
                     taskEditText.startAnimation(zoom_out);
