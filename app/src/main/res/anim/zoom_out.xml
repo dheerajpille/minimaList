@@ -2,9 +2,9 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:fillAfter="true">
 
-    <!-- TODO: fix this to be reverse of zoom_in -->
+    <!-- TODO: make reverse of zoom_in -->
     <scale xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="100"
+        android:duration="200"
         android:fromXScale="1.125"
         android:fromYScale="1.125"
         android:pivotX="50%"
