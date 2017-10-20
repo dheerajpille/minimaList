@@ -2,6 +2,9 @@ package com.dheeraj.pille.minimalist;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.support.v4.view.NestedScrollingChild;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,12 +19,15 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private NestedScrollView background;
 
     private EditText taskEditText;
     private String taskString;
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
         zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_out);
 
+        background = (NestedScrollView)findViewById(R.id.background);
+
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
@@ -54,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         recyclerView.setAdapter(recyclerAdapter);
+
+        background.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.requestFocusFromTouch();
+                return false;
+            }
+        });
 
         // Sets a focus listener for changes
         taskEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -82,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     // Removes shadow from EditText
                     taskEditText.setElevation(0);
 
-                    // Adds plus icon on drawable Left
+                    // Adds plus icon on drawableLeft
                     // Icon made by Google from www.flaticon.com
                     taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_plus_button, 0, 0 ,0);
 
@@ -119,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // Adds inputted task to beginning of taskArrayList
                         tasks.add(0, new Task(taskString, false));
-                        
+
                         recyclerAdapter.notifyItemInserted(0);
 
                         // This is the thing that actually refreshes RecyclerView
