@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 // Checks if EditText is in focus
                 if (b) {
 
+                    // Removes plus icon on drawableLeft
                     taskEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0 ,0);
 
                     // Starts zoom_in animation
@@ -74,14 +75,16 @@ public class MainActivity extends AppCompatActivity {
                     // Adds elevation to create shadow on EditText
                     taskEditText.setElevation(25);
                 } else {
-                    // Icon made by Google from www.flaticon.com
-                    taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_plus_button, 0, 0 ,0);
 
                     // Starts zoom_out animation
                     taskEditText.startAnimation(zoom_out);
 
                     // Removes shadow from EditText
                     taskEditText.setElevation(0);
+
+                    // Adds plus icon on drawable Left
+                    // Icon made by Google from www.flaticon.com
+                    taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_plus_button, 0, 0 ,0);
 
                     // Hides soft keyboard from view
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -102,9 +105,12 @@ public class MainActivity extends AppCompatActivity {
                 if (i == EditorInfo.IME_ACTION_DONE) {
 
                     // Gets string value from EditText
+                    // TODO: check for whitespace being entered
                     taskString = taskEditText.getText().toString();
 
                     // Clears EditText field and focus
+                    // TODO: clear when swiped down and entering
+                    // TODO: lose focus if client clicks outside
                     taskEditText.getText().clear();
                     taskEditText.clearFocus();
 
@@ -113,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
 
                         // Adds inputted task to beginning of taskArrayList
                         tasks.add(0, new Task(taskString, false));
+                        
+                        recyclerAdapter.notifyItemInserted(0);
 
                         // This is the thing that actually refreshes RecyclerView
                         recyclerView.setAdapter(recyclerAdapter);
@@ -146,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        // Adds ItemTouchHelper defined above for swiping task items
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }

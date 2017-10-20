@@ -3,7 +3,10 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#008cff" >
+    android:background="#008cff"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
 
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/background"
@@ -13,6 +16,7 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:descendantFocusability="beforeDescendants"
+        android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:outlineProvider="bounds"
@@ -33,7 +37,9 @@
             android:padding="15dp"
             android:singleLine="true"
             android:textColor="#3f3f3f"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
         <!-- TODO: make this reach the bottom of the page and not cut into keyboard -->
         <android.support.v7.widget.RecyclerView
@@ -43,6 +49,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/taskEditText"
+            android:clickable="true"
             android:focusable="true"
             android:focusableInTouchMode ="true"
             android:scrollbars="vertical" />
