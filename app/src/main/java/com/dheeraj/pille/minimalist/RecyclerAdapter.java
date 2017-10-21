@@ -46,11 +46,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         if (task.getChecked()) {
 
             // Icon made by Google from www.flaticon.com
-            holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_tick_inside_circle, 0, 0, 0);
+            holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_box_black_24dp, 0, 0, 0);
         } else {
 
             // Icon made by Google from www.flaticon.com
-            holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_circle_outline, 0, 0, 0);
+            holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_box_outline_blank_black_24dp, 0, 0, 0);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

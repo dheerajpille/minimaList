@@ -1,12 +1,9 @@
 package com.dheeraj.pille.minimalist;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.support.v4.view.NestedScrollingChild;
+import android.content.SharedPreferences;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
@@ -19,13 +16,17 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String SAVE_KEY = "save_key";
 
     private NestedScrollView background;
 
@@ -46,17 +47,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO: implement saving and getting data
-
-        // Defines animations from res/anim/ resources
-        zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
-        zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_out);
-
         background = (NestedScrollView)findViewById(R.id.background);
 
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
+
+        // Defines animations from res/anim/ resources
+        zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+        zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_out);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 if (b) {
 
                     // Removes plus icon on drawableLeft
-                    taskEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0 ,0);
+                    taskEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_add_black_24dp, 0);
 
                     // Starts zoom_in animation
 
@@ -90,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Adds elevation to create shadow on EditText
                     taskEditText.setElevation(25);
+
                 } else {
 
                     // Starts zoom_out animation
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // Adds plus icon on drawableLeft
                     // Icon made by Google from www.flaticon.com
-                    taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_plus_button, 0, 0 ,0);
+                    taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0 ,0);
 
                     // Hides soft keyboard from view
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -125,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
                     taskString = taskEditText.getText().toString();
 
                     // Clears EditText field and focus
-                    // TODO: clear when swiped down and entering
-                    // TODO: lose focus if client clicks outside
                     taskEditText.getText().clear();
                     taskEditText.clearFocus();
 

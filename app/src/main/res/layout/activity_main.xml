@@ -32,7 +32,7 @@
             android:layout_alignParentTop="true"
             android:background="#9bfde7"
             android:imeOptions="actionDone"
-            android:drawableLeft="@drawable/ic_add_plus_button"
+            android:drawableLeft="@drawable/ic_add_black_24dp"
             android:drawablePadding="15dp"
             android:padding="15dp"
             android:singleLine="true"
