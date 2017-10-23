@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        // TouchListener that takes left/right swipes
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
@@ -182,26 +182,31 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
 
+            // Overrides standard onSwiped action
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int i) {
 
-                //Remove swiped item from list and notify the RecyclerView
+                //Remove swiped item from list and notifies recyclerView
                 int position = viewHolder.getAdapterPosition();
 
                 // Removes task from view with swipe offscreen animation
                 tasks.remove(position);
                 recyclerAdapter.notifyItemRemoved(position);
 
+                // Converts tasks to JSON
                 String json = gson.toJson(tasks);
 
+                // Removes old JSON
                 editor.remove(SAVE_KEY).commit();
+
+                // Inserts new JSON
                 editor.putString(SAVE_KEY, json);
                 editor.commit();
 
             }
         };
 
-        // Adds ItemTouchHelper defined above for swiping task items
+        // Adds ItemTouchHelper defined above for swiping task items to recyclerView
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
