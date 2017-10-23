@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final SharedPreferences pref = getSharedPreferences(SAVE_KEY, MODE_PRIVATE);
+        final Gson gson = new Gson();
 
-        Gson gson = new Gson();
         String response = pref.getString(SAVE_KEY, "");
         tasks = gson.fromJson(response, new TypeToken<ArrayList<Task>>(){}.getType());
 
@@ -148,8 +148,6 @@ public class MainActivity extends AppCompatActivity {
                         // This is the thing that actually refreshes RecyclerView
                         recyclerView.setAdapter(recyclerAdapter);
 
-                        Gson gson = new Gson();
-
                         String json = gson.toJson(tasks);
 
                         SharedPreferences.Editor editor =  pref.edit();
@@ -184,10 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 tasks.remove(position);
                 recyclerAdapter.notifyItemRemoved(position);
 
-                Gson gson = new Gson();
-
                 String json = gson.toJson(tasks);
-
                 SharedPreferences.Editor editor = pref.edit();
                 editor.remove(SAVE_KEY).commit();
                 editor.putString(SAVE_KEY, json);
