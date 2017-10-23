@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     // Adds plus icon on drawableLeft
                     taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0 ,0);
 
-                    // Hides soft keyboard from view
+                    // Hides soft keyboard
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(taskEditText.getWindowToken(), 0);
                 }
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     taskEditText.getText().clear();
                     taskEditText.clearFocus();
 
-                    // Returns appropriate Toast response
+                    // Makes sure string is not empty
                     if (!taskString.isEmpty()) {
 
                         // Adds inputted task to beginning of taskArrayList
@@ -156,12 +156,15 @@ public class MainActivity extends AppCompatActivity {
                         // Refreshes RecyclerView to use standard insert animation
                         recyclerView.setAdapter(recyclerAdapter);
 
+                        // Converts tasks as JSON
                         String json = gson.toJson(tasks);
 
+                        // Removes old JSON
                         editor.remove(SAVE_KEY).commit();
+
+                        // Inserts new JSON
                         editor.putString(SAVE_KEY, json);
                         editor.commit();
-
 
                         return true;
                     }
@@ -194,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
                 editor.remove(SAVE_KEY).commit();
                 editor.putString(SAVE_KEY, json);
                 editor.commit();
-
 
             }
         };
