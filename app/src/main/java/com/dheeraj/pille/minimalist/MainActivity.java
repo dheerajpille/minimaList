@@ -100,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
                 // Checks if EditText is in focus
                 if (b) {
 
-                    // Removes plus icon on drawableLeft
+                    // Removes plus icon on drawableLeft and adds it to drawableRight
+                    // TODO: rotate 45deg and implement clear functionality
                     taskEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_add_black_24dp, 0);
 
                     // Starts zoom_in animation
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     // Removes shadow from EditText
                     taskEditText.setElevation(0);
 
-                    // Adds plus icon on drawableLeft
+                    // Removes plus icon on drawableRight and adds it to drawableLeft
                     taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0 ,0);
 
                     // Hides soft keyboard

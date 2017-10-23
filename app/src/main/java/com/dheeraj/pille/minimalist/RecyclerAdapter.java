@@ -17,14 +17,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     // SAVE_KEY used to store and retrieve task data from SharedPreferences
     public static final String SAVE_KEY = "save_key";
 
+    // Variables for context and tasks
     private Context context;
-    private ArrayList<Task> taskArrayList;
+    private ArrayList<Task> taskArrayList = new ArrayList<Task>();
 
     public RecyclerAdapter(Context c, ArrayList<Task> tal) {
         this.context = c;
         this.taskArrayList = tal;
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView taskText;
@@ -43,20 +43,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        // Gets initial position of tasks
+        // Gets initial position of task
         final Task task = taskArrayList.get(position);
 
+        // Sets taskText
         holder.taskText.setText(task.getText());
 
         if (task.getChecked()) {
 
-            // Icon made by Google from www.flaticon.com
+            // Changes drawableLeft icon to checked
             holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_box_black_24dp, 0, 0, 0);
 
         } else {
 
-            // Icon made by Google from www.flaticon.com
+            // Changes drawableLeft icon to unchecked
             holder.taskText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_check_box_outline_blank_black_24dp, 0, 0, 0);
+
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,23 +75,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 // Gson to store and retrieve data for SharedPreferences
                 Gson gson = new Gson();
 
+                // Toggles checked status onClick
                 task.toggleChecked();
+
+                // Removes task from current position
+                taskArrayList.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
 
                 // Checks if task has toggled to true
                 if (task.getChecked()) {
 
-                    taskArrayList.remove(holder.getAdapterPosition());
-                    notifyItemRemoved(holder.getAdapterPosition());
-
+                    // Places task at end of tasks, in chronological order of checked status
                     taskArrayList.add(task);
                     notifyItemInserted(getItemCount() - 1);
 
-
                 } else {
 
-                    taskArrayList.remove(holder.getAdapterPosition());
-                    notifyItemRemoved(holder.getAdapterPosition());
-
+                    // Places task at beginning of list
                     taskArrayList.add(0, task);
                     notifyItemInserted(0);
 
@@ -109,6 +111,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         });
     }
 
+    // Returns size of taskArrayList
     @Override
     public int getItemCount() {
         return taskArrayList.size();
