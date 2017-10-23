@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
@@ -18,7 +17,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,18 +25,24 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    // SAVE_KEY used to store and retrieve task data from SharedPreferences
     public static final String SAVE_KEY = "save_key";
 
+    // Application background
     private NestedScrollView background;
 
+    // EditText-related fields
     private EditText taskEditText;
     private String taskString;
 
+    // RecyclerView and Adapter for Tasks
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
 
+    // ArrayList of Tasks displayed in RecyclerView
     private ArrayList<Task> tasks = new ArrayList<Task>();
 
+    // Custom animation variables
     private Animation zoom_in, zoom_out;
 
     @Override
@@ -48,14 +52,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // SharedPreferences to store and retrieve data
         final SharedPreferences pref = getSharedPreferences(SAVE_KEY, MODE_PRIVATE);
+
+        // SharedPreferences editor to store data
+        final SharedPreferences.Editor editor =  pref.edit();
+
+        // Gson to store and retrieve data for SharedPreferences
         final Gson gson = new Gson();
 
+        // Places saved Task data to ArrayList from SharedPreferences
         String response = pref.getString(SAVE_KEY, "");
         tasks = gson.fromJson(response, new TypeToken<ArrayList<Task>>(){}.getType());
 
+        // Defines various views present in application
         background = (NestedScrollView)findViewById(R.id.background);
-
         taskEditText = (EditText)findViewById(R.id.taskEditText);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerAdapter = new RecyclerAdapter(getApplicationContext(), tasks);
@@ -64,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
         zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
         zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_out);
 
+        // Sets LayoutManager and Adapter for RecyclerView
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
         recyclerView.setAdapter(recyclerAdapter);
 
-
+        // Removes focus from EditText when clicking on background
         // TODO: remove focus from EditText when clicking on recyclerView
         background.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -79,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Sets a focus listener for changes
+        // Sets a focus listener on EditText for changes
         taskEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
             // Overrides standard FocusChange function
@@ -93,10 +104,9 @@ public class MainActivity extends AppCompatActivity {
                     taskEditText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_add_black_24dp, 0);
 
                     // Starts zoom_in animation
-
                     taskEditText.startAnimation(zoom_in);
 
-                    // Adds elevation to create shadow on EditText
+                    // Adds elevation to create shadow effect for EditText
                     taskEditText.setElevation(25);
 
                 } else {
@@ -108,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                     taskEditText.setElevation(0);
 
                     // Adds plus icon on drawableLeft
-                    // Icon made by Google from www.flaticon.com
                     taskEditText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_add_black_24dp, 0, 0 ,0);
 
                     // Hides soft keyboard from view
@@ -118,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Sets an editor action listener for done input
+        // Sets an editor action listener for EditText done input
         taskEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             // Overrides standard onEditorAction function
@@ -142,15 +151,13 @@ public class MainActivity extends AppCompatActivity {
 
                         // Adds inputted task to beginning of taskArrayList
                         tasks.add(0, new Task(taskString, false));
-
                         recyclerAdapter.notifyItemInserted(0);
 
-                        // This is the thing that actually refreshes RecyclerView
+                        // Refreshes RecyclerView to use standard insert animation
                         recyclerView.setAdapter(recyclerAdapter);
 
                         String json = gson.toJson(tasks);
 
-                        SharedPreferences.Editor editor =  pref.edit();
                         editor.remove(SAVE_KEY).commit();
                         editor.putString(SAVE_KEY, json);
                         editor.commit();
@@ -183,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 recyclerAdapter.notifyItemRemoved(position);
 
                 String json = gson.toJson(tasks);
-                SharedPreferences.Editor editor = pref.edit();
+
                 editor.remove(SAVE_KEY).commit();
                 editor.putString(SAVE_KEY, json);
                 editor.commit();
