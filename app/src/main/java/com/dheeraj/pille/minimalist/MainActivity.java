@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.animation.Animation;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String SAVE_KEY = "save_key";
+    public static final String SAVE_KEY = "save_key";
 
     private NestedScrollView background;
 
@@ -46,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
         // Creates application view
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final SharedPreferences pref = getSharedPreferences(SAVE_KEY, MODE_PRIVATE);
+
+        Gson gson = new Gson();
+        String response = pref.getString(SAVE_KEY, "");
+        tasks = gson.fromJson(response, new TypeToken<ArrayList<Task>>(){}.getType());
 
         background = (NestedScrollView)findViewById(R.id.background);
 
@@ -141,6 +148,16 @@ public class MainActivity extends AppCompatActivity {
                         // This is the thing that actually refreshes RecyclerView
                         recyclerView.setAdapter(recyclerAdapter);
 
+                        Gson gson = new Gson();
+
+                        String json = gson.toJson(tasks);
+
+                        SharedPreferences.Editor editor =  pref.edit();
+                        editor.remove(SAVE_KEY).commit();
+                        editor.putString(SAVE_KEY, json);
+                        editor.commit();
+
+
                         return true;
                     }
                 }
@@ -166,6 +183,16 @@ public class MainActivity extends AppCompatActivity {
                 // Removes task from view with swipe offscreen animation
                 tasks.remove(position);
                 recyclerAdapter.notifyItemRemoved(position);
+
+                Gson gson = new Gson();
+
+                String json = gson.toJson(tasks);
+
+                SharedPreferences.Editor editor = pref.edit();
+                editor.remove(SAVE_KEY).commit();
+                editor.putString(SAVE_KEY, json);
+                editor.commit();
+
 
             }
         };
